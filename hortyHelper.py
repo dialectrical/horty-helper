@@ -1,3 +1,4 @@
+import logging
 import itertools
 
 class hortyHelper:
@@ -17,7 +18,7 @@ class hortyHelper:
                 self.dict_subset.append(subset)
 
     def run_scenario(self, scenario):
-        if len(self.dict_suubset) == 0:
+        if len(self.dict_subset) is 0:
             make_subset()
 
         def consistent_check():
@@ -66,12 +67,13 @@ class hortyHelper:
                     extensions.remove(i)
             return seen == extensions
 
+        self.output_matrix.append([self.dict_subset[scenario]])
+
         seen = consistent_check()
         extensions = extension(seen)
         conflicts = conflict_check(seen, extensions)
         proper = binding_check(seen, extensions, conflicts, conflicts)
 
-        self.output_matrix.append([self.dict_subset[scenario]])
         self.output_matrix[scenario].append(extensions)
         self.output_matrix[scenario].append(conflicts)
         self.output_matrix[scenario].append(proper)
@@ -81,4 +83,7 @@ class hortyHelper:
 tester = hortyHelper()
 tester.set_dict({"socrates" : "man", "man" : "mortal"})
 tester.make_subset()
+tester.run_scenario(0)
+tester.run_scenario(1)
 tester.run_scenario(2)
+tester.run_scenario(3)
