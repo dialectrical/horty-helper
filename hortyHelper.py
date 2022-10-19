@@ -6,12 +6,12 @@ class hortyHelper:
     dict_subset = []
     output_matrix = []
 
-    def set_dict(x):
+    def set_dict(self, x):
         if type(x) is not dict:
             return print('Error: input must be a dictionary.')
         scenario_dict = x
 
-    def make_subset():
+    def make_subset(self):
         for i in range(len(list(dict)) + 1):
             for subset in itertools.combinations(list(dict), i):
                 dict_subset.append(subset)
