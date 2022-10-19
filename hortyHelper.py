@@ -66,9 +66,19 @@ class hortyHelper:
                     extensions.remove(i)
             return seen == extensions
 
+        seen = consistent_check()
+        extensions = extension(seen)
+        conflicts = conflict_check(seen, extensions)
+        proper = binding_check(seen, extensions, conflicts, conflicts)
+
         self.output_matrix.append([self.dict_subset[scenario]])
+        self.output_matrix[scenario].append(extensions)
+        self.output_matrix[scenario].append(conflicts)
+        self.output_matrix[scenario].append(proper)
+        print(self.output_matrix[scenario])
 
 "simple tests"
 tester = hortyHelper()
 tester.set_dict({"socrates" : "man", "man" : "mortal"})
 tester.make_subset()
+tester.run_scenario(2)
