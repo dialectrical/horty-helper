@@ -44,6 +44,15 @@ class hortyHelper:
                     extension_seen.add(self.scenario_dict[i])
             return extensions
 
+        def conflict_check(extensions_seen)
+            conflict = []
+            for i in seen:
+                if (i[0] is '!' and i[1] in extensions_seen) or (i[0] is not '!' and '!' + i[0] in extensions_seen):
+                    conflict.append(i)
+            if len(conflict) is 0:
+                conflict.append('No Conflicts')
+            return conflict
+
         self.output_matrix.append([self.dict_subset[scenario]])
 
 "simple tests"
