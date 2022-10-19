@@ -15,3 +15,9 @@ class hortyHelper:
         for i in range(len(list(dict)) + 1):
             for subset in itertools.combinations(list(dict), i):
                 dict_subset.append(subset)
+        print(dict_subset)
+
+"simple tests"
+def tester = hortyHelper()
+tester.set_dict({"socrates" : "man", "man" : "mortal"})
+tester.make_subset()
