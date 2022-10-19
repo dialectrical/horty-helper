@@ -21,4 +21,3 @@ class hortyHelper:
 tester = hortyHelper()
 tester.set_dict({"socrates" : "man", "man" : "mortal"})
 tester.make_subset()
-tester.scenario_index()
