@@ -1,0 +1,3 @@
+import itertools
+
+class hortyHelper: 
