@@ -33,6 +33,16 @@ class hortyHelper:
                 self.output_matrix[scenario].append('Not Consistent')
             else:
                 self.output_matrix[scenario].append('Consistent')
+            return seen
+
+        def extension(seen):
+            extensions = []
+            extension_seen = set()
+            for i in seen:
+                if i in self.scenario_dict and self.scenario_dict[i] not in extension_seen
+                    extensions.append(self.scenario_dict[i])
+                    extension_seen.add(self.scenario_dict[i])
+            return extensions
 
         self.output_matrix.append([self.dict_subset[scenario]])
 "simple tests"
