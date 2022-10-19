@@ -1,3 +1,7 @@
 import itertools
 
-class hortyHelper: 
+class hortyHelper:
+    world = ""
+    dict = {}
+    dict_subset = []
+    output_matrix = []
