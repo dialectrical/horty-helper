@@ -4,7 +4,6 @@ class hortyHelper:
     world = ""
     scenario_dict = {}
     dict_subset = []
-    scenario_index = {}
     output_matrix = []
 
     def set_dict(self, x):
@@ -17,17 +16,6 @@ class hortyHelper:
             for subset in itertools.combinations(list(self.scenario_dict), i):
                 self.dict_subset.append(subset)
 
-    def scenario_index(self):
-        working_dict = {}
-        for i, l in enumerate(list(self.scenario_dict)):
-            val = self.scenario_dict[l]
-            print(val)
-            key = i
-            print(key)
-            working_dict[val] = key
-        print(working_dict)
-        self.scenario_index = working_dict
-        print(self.scenario_index)
 
 "simple tests"
 tester = hortyHelper()
