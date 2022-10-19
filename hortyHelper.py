@@ -39,12 +39,13 @@ class hortyHelper:
             extensions = []
             extension_seen = set()
             for i in seen:
-                if i in self.scenario_dict and self.scenario_dict[i] not in extension_seen
+                if i in self.scenario_dict and self.scenario_dict[i] not in extension_seen:
                     extensions.append(self.scenario_dict[i])
                     extension_seen.add(self.scenario_dict[i])
             return extensions
 
         self.output_matrix.append([self.dict_subset[scenario]])
+
 "simple tests"
 tester = hortyHelper()
 tester.set_dict({"socrates" : "man", "man" : "mortal"})
