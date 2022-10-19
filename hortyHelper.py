@@ -9,13 +9,14 @@ class hortyHelper:
     def set_dict(self, x):
         if type(x) is not dict:
             return print('Error: input must be a dictionary.')
-        scenario_dict = x
+        self.scenario_dict = x
 
     def make_subset(self):
-        for i in range(len(list(dict)) + 1):
-            for subset in itertools.combinations(list(dict), i):
-                dict_subset.append(subset)
-        print(dict_subset)
+        print(self.scenario_dict)
+        for i in range(len(list(self.scenario_dict)) + 1):
+            for subset in itertools.combinations(list(self.scenario_dict), i):
+                self.dict_subset.append(subset)
+        print(self.dict_subset)
 
 "simple tests"
 tester = hortyHelper()
