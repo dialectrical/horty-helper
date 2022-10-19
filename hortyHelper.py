@@ -19,11 +19,11 @@ class hortyHelper:
 
     def scenario_index():
         for i, l in list(self.scenario_dict):
-            self.dict_index[l] = i
-        print(self.dict_index)
+            self.scenario_index[l] = i
+        print(self.scenario_index)
 
 "simple tests"
 tester = hortyHelper()
 tester.set_dict({"socrates" : "man", "man" : "mortal"})
 tester.make_subset()
-tester.dict_index()
+tester.scenario_index()
