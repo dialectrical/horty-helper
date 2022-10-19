@@ -18,6 +18,6 @@ class hortyHelper:
         print(dict_subset)
 
 "simple tests"
-def tester = hortyHelper()
+tester = hortyHelper()
 tester.set_dict({"socrates" : "man", "man" : "mortal"})
 tester.make_subset()
