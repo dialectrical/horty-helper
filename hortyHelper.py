@@ -74,6 +74,12 @@ class hortyHelper:
                     extensions.remove(i)
             return extensions
 
+        def proper_check(seen, binding):
+            for i in seen:
+                if i not in binding:
+                    return 'Improper'
+            return 'Proper'
+
         scenario_arr = []
         for i in self.dict_subset[scenario]:
             scenario_arr.append(self.scenario_dict[i])
@@ -93,7 +99,7 @@ class hortyHelper:
         self.output_matrix[scenario].append(binding)
         print(seen)
         print(binding)
-        self.output_matrix[scenario].append(seen == binding)
+        self.output_matrix[scenario].append(proper_check(seen_binding)
         print(self.output_matrix[scenario])
 
 "simple tests"
