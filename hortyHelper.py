@@ -34,14 +34,13 @@ def default_calculator(world, scenario_dict, priority_dict):
                 output_matrix[scenario].append('Consistent')
             return seen
 
-        def extension(triggered_world, seen):
-            extensions = triggered_world
-            extension_seen = set()
+        def extension(seen):
+            extensions_seen = set()
             for i in seen:
-                if i in scenario_dict and scenario_dict[i] not in extension_seen:
-                    extensions.append(scenario_dict[i])
-                    extension_seen.add(scenario_dict[i])
-            return extensions
+                extensions_seen.add(i)
+                if i in scenario_dict and scenario_dict[i] not in extensions_seen:
+                    extensions_seen.add(scenario_dict[i])
+            return extensions_seen
 
         def conflict_check(seen, extensions_seen):
             conflict = []
@@ -52,24 +51,21 @@ def default_calculator(world, scenario_dict, priority_dict):
                 conflict.append('No Conflicts')
             return conflict
 
-        def defeated_check(seen, extensions, priority):
+        def defeated_check(seen, extensions, priority_dict):
             defeated = set()
-            for i in seen:
-                if i[0] is '!' and i[1] in extensions and i in priority:
+            for i in extensions:
+                if i[0] == '!' and i[1] in extensions and i in priority_dict:
                     defeated.add(i[1])
-                elif i[0] is '!' and i[1] in extensions:
-                    defeated.add(i)
-                elif i[0] is not '!' and '!' + i in extensions and i in priority:
+                elif i[0] != '!' and '!' + i in extensions and i in priority_dict:
                     defeated.add('!' + i)
-                elif i[0] is not '!' and '!' + i in extensions:
-                    defeated.add(i)
             return defeated
 
         def binding_check(extensions, conflicts, defeated):
+            binding = set()
             for i in extensions:
-                if i in conflicts or i in defeated:
-                    extensions.remove(i)
-            return extensions
+                if i not in conflicts or i not in defeated:
+                    binding.add(i)
+            return binding
 
         def proper_check(seen, binding):
             for i in seen:
@@ -86,9 +82,9 @@ def default_calculator(world, scenario_dict, priority_dict):
 
         triggered_world = trigger_world(world)
         seen = consistent_check(triggered_world)
-        extensions = extension(triggered_world, seen)
+        extensions = extension(seen)
         conflicts = conflict_check(seen, extensions)
-        defeated = defeated_check(seen, extensions, {"a" : "!a"})
+        defeated = defeated_check(seen, extensions, priority_dict)
         binding = binding_check(extensions, conflicts, defeated)
 
         output_matrix[scenario].append(extensions)
