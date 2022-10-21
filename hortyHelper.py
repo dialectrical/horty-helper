@@ -20,6 +20,9 @@ def default_calculator(world, scenario_dict, priority_dict):
                 elif scenario_dict[i][0] is '!' and scenario_dict[i][1] in seen:
                     conflict = 1
                 seen.add(scenario_dict[i])
+            seen.add(world)
+            if conflict != 1 and (world[0] is not '!' and '!' + world in seen) or (world[0] is '!' and world[1] in seen):
+                conflict = 1
             if conflict is not 0:
                 output_matrix[scenario].append('Not Consistent')
             else:
@@ -87,7 +90,7 @@ def default_calculator(world, scenario_dict, priority_dict):
         output_matrix[scenario].append(defeated)
         output_matrix[scenario].append(binding)
         output_matrix[scenario].append(proper_check(seen, binding))
-        print output_matrix[scenario]
+        print(output_matrix[scenario])
 
     make_subset()
     for i in range(len(dict_subset)):
