@@ -34,8 +34,8 @@ def default_calculator(world, scenario_dict, priority_dict):
                 output_matrix[scenario].append('Consistent')
             return seen
 
-        def extension(seen):
-            extensions = [world]
+        def extension(triggered_world, seen):
+            extensions = triggered_world
             extension_seen = set()
             for i in seen:
                 if i in scenario_dict and scenario_dict[i] not in extension_seen:
@@ -62,7 +62,7 @@ def default_calculator(world, scenario_dict, priority_dict):
                 elif i[0] is not '!' and '!' + i in extensions and i in priority:
                     defeated.add('!' + i)
                 elif i[0] is not '!' and '!' + i in extensions:
-                    defeated.add(1)
+                    defeated.add(i)
             return defeated
 
         def binding_check(extensions, conflicts, defeated):
@@ -86,7 +86,7 @@ def default_calculator(world, scenario_dict, priority_dict):
 
         triggered_world = trigger_world(world)
         seen = consistent_check(triggered_world)
-        extensions = extension(seen)
+        extensions = extension(triggered_world, seen)
         conflicts = conflict_check(seen, extensions)
         defeated = defeated_check(seen, extensions, {"a" : "!a"})
         binding = binding_check(extensions, conflicts, defeated)
