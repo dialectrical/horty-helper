@@ -50,7 +50,6 @@ class hortyHelper:
             for i in seen:
                 print(i)
                 if (i[0] is '!' and i[1] in extensions_seen) or (i[0] is not '!' and '!' + i[0] in extensions_seen):
-                    print('conflict seen')
                     conflict.append(i)
             if len(conflict) is 0:
                 conflict.append('No Conflicts')
@@ -67,8 +66,6 @@ class hortyHelper:
                     defeated.add('!' + i)
                 elif i[0] is not '!' and '!' + i in extensions:
                     defeated.add(1)
-            print('defeated test: ')
-            print(defeated)
             return defeated
 
         def binding_check(seen, extensions, conflicts, defeated):
@@ -81,8 +78,8 @@ class hortyHelper:
         for i in self.dict_subset[scenario]:
             scenario_arr.append(self.scenario_dict[i])
         if scenario == 0:
-            scenario_arr = 'None'
-        self.output_matrix.append(scenario_arr)
+            scenario_arr = 'none'
+        self.output_matrix.append([scenario_arr])
 
         seen = consistent_check()
         extensions = extension(seen)
