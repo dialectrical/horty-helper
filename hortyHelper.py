@@ -48,7 +48,9 @@ class hortyHelper:
         def conflict_check(seen, extensions_seen):
             conflict = []
             for i in seen:
+                print(i)
                 if (i[0] is '!' and i[1] in extensions_seen) or (i[0] is not '!' and '!' + i[0] in extensions_seen):
+                    print('conflict seen')
                     conflict.append(i)
             if len(conflict) is 0:
                 conflict.append('No Conflicts')
@@ -65,6 +67,7 @@ class hortyHelper:
                     defeated.add('!' + i)
                 elif i[0] is not '!' and '!' + i in extensions:
                     defeated.add(1)
+            print('defeated test: ')
             print(defeated)
             return defeated
 
@@ -89,7 +92,7 @@ class hortyHelper:
 
 "simple tests"
 tester = hortyHelper()
-tester.set_dict({"a" : "b", "b" : "!a"})
+tester.set_dict({"a" : "a", "b" : "!a"})
 tester.make_subset()
 tester.run_scenario(0)
 tester.run_scenario(1)
