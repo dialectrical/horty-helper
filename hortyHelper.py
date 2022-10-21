@@ -1,48 +1,38 @@
 import logging
 import itertools
 
-class hortyHelper:
-    world = ""
-    scenario_dict = {}
+def default_calculator(world, scenario_dict, priority_dict):
     dict_subset = []
     output_matrix = []
 
-    def set_dict(self, x):
-        if type(x) is not dict:
-            return print('Error: input must be a dictionary.')
-        self.scenario_dict = x
+    def make_subset():
+        for i in range(len(list(scenario_dict)) + 1):
+            for subset in itertools.combinations(list(scenario_dict), i):
+                dict_subset.append(subset)
 
-    def make_subset(self):
-        for i in range(len(list(self.scenario_dict)) + 1):
-            for subset in itertools.combinations(list(self.scenario_dict), i):
-                self.dict_subset.append(subset)
-
-    def run_scenario(self, scenario):
-        if len(self.dict_subset) is 0:
-            make_subset()
-
+    def run_scenario(scenario):
         def consistent_check():
             seen = set()
             conflict = 0
-            for i in self.dict_subset[scenario]:
-                if self.scenario_dict[i][0] is not '!' and '!' + self.scenario_dict[i] in seen:
+            for i in dict_subset[scenario]:
+                if scenario_dict[i][0] is not '!' and '!' + scenario_dict[i] in seen:
                     conflict = 1
-                elif self.scenario_dict[i][0] is '!' and self.scenario_dict[i][1] in seen:
+                elif scenario_dict[i][0] is '!' and scenario_dict[i][1] in seen:
                     conflict = 1
-                seen.add(self.scenario_dict[i])
+                seen.add(scenario_dict[i])
             if conflict is not 0:
-                self.output_matrix[scenario].append('Not Consistent')
+                output_matrix[scenario].append('Not Consistent')
             else:
-                self.output_matrix[scenario].append('Consistent')
+                output_matrix[scenario].append('Consistent')
             return seen
 
         def extension(seen):
             extensions = []
             extension_seen = set()
             for i in seen:
-                if i in self.scenario_dict and self.scenario_dict[i] not in extension_seen:
-                    extensions.append(self.scenario_dict[i])
-                    extension_seen.add(self.scenario_dict[i])
+                if i in scenario_dict and scenario_dict[i] not in extension_seen:
+                    extensions.append(scenario_dict[i])
+                    extension_seen.add(scenario_dict[i])
             return extensions
 
         def conflict_check(seen, extensions_seen):
@@ -80,11 +70,11 @@ class hortyHelper:
             return 'Proper'
 
         scenario_arr = []
-        for i in self.dict_subset[scenario]:
-            scenario_arr.append(self.scenario_dict[i])
+        for i in dict_subset[scenario]:
+            scenario_arr.append(scenario_dict[i])
         if scenario == 0:
             scenario_arr = 'none'
-        self.output_matrix.append([scenario_arr])
+        output_matrix.append([scenario_arr])
 
         seen = consistent_check()
         extensions = extension(seen)
@@ -92,18 +82,16 @@ class hortyHelper:
         defeated = defeated_check(seen, extensions, {"a" : "!a"})
         binding = binding_check(extensions, conflicts, defeated)
 
-        self.output_matrix[scenario].append(extensions)
-        self.output_matrix[scenario].append(conflicts)
-        self.output_matrix[scenario].append(defeated)
-        self.output_matrix[scenario].append(binding)
-        self.output_matrix[scenario].append(proper_check(seen, binding))
-        print(self.output_matrix[scenario])
+        output_matrix[scenario].append(extensions)
+        output_matrix[scenario].append(conflicts)
+        output_matrix[scenario].append(defeated)
+        output_matrix[scenario].append(binding)
+        output_matrix[scenario].append(proper_check(seen, binding))
+        print output_matrix[scenario]
 
+    make_subset()
+    for i in range(len(dict_subset)):
+        run_scenario(i)
+    return output_matrix
 "simple tests"
-tester = hortyHelper()
-tester.set_dict({"a" : "a", "b" : "!a"})
-tester.make_subset()
-tester.run_scenario(0)
-tester.run_scenario(1)
-tester.run_scenario(2)
-tester.run_scenario(3)
+print(default_calculator('a', {'a': 'c', 'b' : '!a'}, {'a' : '!a'}))
