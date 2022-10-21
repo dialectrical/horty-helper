@@ -12,7 +12,7 @@ def default_calculator(world, scenario_dict, priority_dict):
 
     def run_scenario(scenario):
         def consistent_check():
-            seen = set()
+            seen = {world}
             conflict = 0
             for i in dict_subset[scenario]:
                 if scenario_dict[i][0] is not '!' and '!' + scenario_dict[i] in seen:
@@ -20,9 +20,6 @@ def default_calculator(world, scenario_dict, priority_dict):
                 elif scenario_dict[i][0] is '!' and scenario_dict[i][1] in seen:
                     conflict = 1
                 seen.add(scenario_dict[i])
-            seen.add(world)
-            if conflict != 1 and (world[0] is not '!' and '!' + world in seen) or (world[0] is '!' and world[1] in seen):
-                conflict = 1
             if conflict is not 0:
                 output_matrix[scenario].append('Not Consistent')
             else:
@@ -30,7 +27,7 @@ def default_calculator(world, scenario_dict, priority_dict):
             return seen
 
         def extension(seen):
-            extensions = []
+            extensions = [world]
             extension_seen = set()
             for i in seen:
                 if i in scenario_dict and scenario_dict[i] not in extension_seen:
