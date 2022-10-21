@@ -48,7 +48,6 @@ class hortyHelper:
         def conflict_check(seen, extensions_seen):
             conflict = []
             for i in seen:
-                print(i)
                 if (i[0] is '!' and i[1] in extensions_seen) or (i[0] is not '!' and '!' + i[0] in extensions_seen):
                     conflict.append(i)
             if len(conflict) is 0:
@@ -97,9 +96,7 @@ class hortyHelper:
         self.output_matrix[scenario].append(conflicts)
         self.output_matrix[scenario].append(defeated)
         self.output_matrix[scenario].append(binding)
-        print(seen)
-        print(binding)
-        self.output_matrix[scenario].append(proper_check(seen_binding))
+        self.output_matrix[scenario].append(proper_check(seen, binding))
         print(self.output_matrix[scenario])
 
 "simple tests"
