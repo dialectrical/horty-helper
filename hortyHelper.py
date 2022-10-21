@@ -68,11 +68,11 @@ class hortyHelper:
                     defeated.add(1)
             return defeated
 
-        def binding_check(seen, extensions, conflicts, defeated):
+        def binding_check(extensions, conflicts, defeated):
             for i in extensions:
                 if i in conflicts or i in defeated:
                     extensions.remove(i)
-            return seen == extensions
+            return extensions
 
         scenario_arr = []
         for i in self.dict_subset[scenario]:
@@ -85,11 +85,15 @@ class hortyHelper:
         extensions = extension(seen)
         conflicts = conflict_check(seen, extensions)
         defeated = defeated_check(seen, extensions, {"a" : "!a"})
-        proper = binding_check(seen, extensions, conflicts, conflicts)
+        binding = binding_check(extensions, conflicts, defeated)
 
         self.output_matrix[scenario].append(extensions)
         self.output_matrix[scenario].append(conflicts)
-        self.output_matrix[scenario].append(proper)
+        self.output_matrix[scenario].append(defeated)
+        self.output_matrix[scenario].append(binding)
+        print(seen)
+        print(binding)
+        self.output_matrix[scenario].append(seen == binding)
         print(self.output_matrix[scenario])
 
 "simple tests"
