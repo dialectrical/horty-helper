@@ -68,9 +68,8 @@ def default_calculator(world, scenario_dict, priority_dict):
             return binding
 
         def proper_check(seen, binding):
-            for i in seen:
-                if i not in binding:
-                    return 'Improper'
+            if seen != binding:
+                return 'Improper'
             return 'Proper'
 
         scenario_arr = []
@@ -100,4 +99,7 @@ def default_calculator(world, scenario_dict, priority_dict):
     return output_matrix
 
 "simple test"
-default_calculator({0 : 'p', 1 : 'b'}, {'b': 'f', 'p' : '!f'}, {'!f' : 'f'})
+print('bird test')
+default_calculator({0 : 'p', 1 : 'b'}, {'b' : 'f', 'p' : '!f'}, {'!f' : 'f'})
+print('quaker test')
+default_calculator({0 : 'q', 1 : 'r'}, {'q' : 'p', 'r' : '!p'}, {1 : 2})
