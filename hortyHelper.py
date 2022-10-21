@@ -45,8 +45,8 @@ def default_calculator(world, scenario_dict, priority_dict):
 
         def conflict_check(seen, extensions_seen):
             conflict = []
-            for i in seen:
-                if (i[0] is '!' and i[1] in extensions_seen) or (i[0] is not '!' and '!' + i[0] in extensions_seen):
+            for i in extensions_seen:
+                if (i[0] is '!' and i[1] in seen) or (i[0] is not '!' and '!' + i[0] in seen):
                     conflict.append(i)
             if len(conflict) is 0:
                 conflict.append('No Conflicts')
@@ -104,4 +104,4 @@ def default_calculator(world, scenario_dict, priority_dict):
     return output_matrix
 
 "simple test"
-print(default_calculator({0 : 'p', 1 : 'b'}, {'b': 'f', 'p' : '!f'}, {'!f' : 'f'}))
+default_calculator({0 : 'p', 1 : 'b'}, {'b': 'f', 'p' : '!f'}, {'!f' : 'f'})
