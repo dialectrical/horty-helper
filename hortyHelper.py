@@ -77,7 +77,12 @@ class hortyHelper:
                     extensions.remove(i)
             return seen == extensions
 
-        self.output_matrix.append([self.dict_subset[scenario]])
+        scenario_arr = []
+        for i in self.dict_subset[scenario]:
+            scenario_arr.append(self.scenario_dict[i])
+        if scenario == 0:
+            scenario_arr = 'None'
+        self.output_matrix.append(scenario_arr)
 
         seen = consistent_check()
         extensions = extension(seen)
