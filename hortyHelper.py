@@ -54,12 +54,19 @@ class hortyHelper:
                 conflict.append('No Conflicts')
             return conflict
 
-        def defeated_check():
-            # TODO: Write this function.
-            """
-            This will need to be able to reference a priority list
-            and be able to understand the dictionary in terms of indices
-            """
+        def defeated_check(seen, extensions, priority):
+            defeated = set()
+            for i in seen:
+                if i[0] is '!' and i[1] in extensions and i in priority:
+                    defeated.add(i[1])
+                elif i[0] is '!' and i[1] in extensions:
+                    defeated.add(i)
+                elif i[0] is not '!' and '!' + i in extensions and i in priority:
+                    defeated.add('!' + i)
+                elif i[0] is not '!' and '!' + i in extensions:
+                    defeated.add(1)
+            print(defeated)
+            return defeated
 
         def binding_check(seen, extensions, conflicts, defeated):
             for i in extensions:
@@ -72,6 +79,7 @@ class hortyHelper:
         seen = consistent_check()
         extensions = extension(seen)
         conflicts = conflict_check(seen, extensions)
+        defeated = defeated_check(seen, extensions, {"a" : "!a"})
         proper = binding_check(seen, extensions, conflicts, conflicts)
 
         self.output_matrix[scenario].append(extensions)
@@ -81,7 +89,7 @@ class hortyHelper:
 
 "simple tests"
 tester = hortyHelper()
-tester.set_dict({"socrates" : "man", "man" : "mortal"})
+tester.set_dict({"a" : "b", "b" : "!a"})
 tester.make_subset()
 tester.run_scenario(0)
 tester.run_scenario(1)
