@@ -99,7 +99,7 @@ class hortyHelper:
         self.output_matrix[scenario].append(binding)
         print(seen)
         print(binding)
-        self.output_matrix[scenario].append(proper_check(seen_binding)
+        self.output_matrix[scenario].append(proper_check(seen_binding))
         print(self.output_matrix[scenario])
 
 "simple tests"
