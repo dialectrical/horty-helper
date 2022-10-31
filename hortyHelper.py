@@ -43,12 +43,12 @@ def default_calculator(world, scenario_dict, priority_dict):
             return extensions_seen
 
         def conflict_check(seen, extensions_seen):
-            conflict = []
+            conflict = set()
             for i in extensions_seen:
                 if (i[0] is '!' and i[1] in seen) or (i[0] is not '!' and '!' + i[0] in seen):
-                    conflict.append(i)
+                    conflict.add(i)
             if len(conflict) is 0:
-                conflict.append('No Conflicts')
+                conflict.add('No Conflicts')
             return conflict
 
         def defeated_check(seen, extensions, priority_dict):
@@ -102,4 +102,4 @@ def default_calculator(world, scenario_dict, priority_dict):
 print('bird test')
 default_calculator({0 : 'p', 1 : 'b'}, {'b' : 'f', 'p' : '!f'}, {'!f' : 'f'})
 print('quaker test')
-default_calculator({0 : 'q', 1 : 'r'}, {'q' : 'p', 'r' : '!p'}, {1 : 2})
+default_calculator({0 : 'q', 1 : 'r'}, {'q' : 'p', 'r' : '!p'}, {})
