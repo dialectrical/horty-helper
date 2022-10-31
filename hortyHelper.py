@@ -58,12 +58,17 @@ def default_calculator(world, scenario_dict, priority_dict):
                     defeated.add(i[1])
                 elif i[0] != '!' and '!' + i in extensions and i in priority_dict:
                     defeated.add('!' + i)
+            for i in dict_subset[scenario]:
+                if i[0] == '!' and i[1] in extensions and i not in priority_dict and i[1] not in priority_dict:
+                    defeated.add(i[1])
+                elif i[0] != '!' and '!' + i in extensions and i not in priority_dict and i[1] not in priority_dict:
+                    defeated.add('!' + i)
             return defeated
 
         def binding_check(extensions, conflicts, defeated):
             binding = set()
             for i in extensions:
-                if i not in conflicts or i not in defeated:
+                if i not in conflicts and i not in defeated:
                     binding.add(i)
             return binding
 
